@@ -124,16 +124,16 @@ fun SlidingTimeSelection(
                                 textAlign = TextAlign.Center,
                                 color = Color(0xFF0000000),
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 45.sp
+                                fontSize = 50.sp
                             )
                         }
                         else -> {
                             Text(
                                 text = if (item > 9) item.toString() else "0$item",
-                                textAlign = TextAlign.Center,
+                                textAlign = TextAlign.End,
                                 color = Color(0x660000000),
                                 fontWeight = FontWeight.W300,
-                                fontSize = 45.sp
+                                fontSize = 35.sp
                             )
                         }
                     }
@@ -160,7 +160,12 @@ fun MyApp() {
         ) {
 
             Column(modifier = Modifier.padding(15.dp)) {
-                Text(text = _context.getString(R.string.app_name))
+                Text(
+                    text = _context.getString(R.string.app_name),
+                    fontSize = 35.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(start = 15.dp)
+                )
             }
 
             Row(
@@ -174,8 +179,9 @@ fun MyApp() {
                 SlidingTimeSelection(
                     modifier = Modifier
                         .weight(1f)
-                        .height(335.dp),
-                    text = "Hour",
+                        .height(280.dp),
+                    text = "H",
+//                    text = "Hour",
                     maxValue = 23,
                     callBack = fun(it: Int) {
                         Log.d("tzmax", "选中的小时: $it")
@@ -185,8 +191,9 @@ fun MyApp() {
                 SlidingTimeSelection(
                     modifier = Modifier
                         .weight(1f)
-                        .height(335.dp),
-                    text = "Minute",
+                        .height(280.dp),
+                    text = "M",
+//                    text = "Minute",
                     callBack = fun(it: Int) {
                         Log.d("tzmax", "选中的分钟: $it")
                     }
@@ -195,8 +202,9 @@ fun MyApp() {
                 SlidingTimeSelection(
                     modifier = Modifier
                         .weight(1f)
-                        .height(335.dp),
-                    text = "Second",
+                        .height(280.dp),
+                    text = "S",
+//                    text = "Second",
                     callBack = fun(it: Int) {
                         Log.d("tzmax", "选中的秒钟: $it")
                     }
@@ -214,14 +222,21 @@ fun MyApp() {
                 Column(
                     modifier = Modifier
                         .weight(1f)
-
+                        .padding(bottom = 20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_action_play),
                         contentDescription = "",
                         Modifier
-                            .width(45.dp)
-                            .height(45.dp)
+                            .width(85.dp)
+                            .height(85.dp)
+                    )
+                    Text(
+                        text = "Run timer",
+                        modifier = Modifier.padding(top = 5.dp),
+                        color = Color(0x66000000),
+                        fontWeight = FontWeight.Bold
                     )
                 }
             }
