@@ -20,6 +20,7 @@ import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,6 +32,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -40,6 +42,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -151,6 +154,16 @@ fun MyApp() {
 
     val _context = BaseApplication.getContext()
 
+    var _timer_s = remember {
+        mutableStateOf(0)
+    }
+    var _timer_m = remember {
+        mutableStateOf(3)
+    }
+    var _timer_h = remember {
+        mutableStateOf(3)
+    }
+
     Surface(color = MaterialTheme.colors.background) {
 
         Column(
@@ -184,7 +197,8 @@ fun MyApp() {
 //                    text = "Hour",
                     maxValue = 23,
                     callBack = fun(it: Int) {
-                        Log.d("tzmax", "选中的小时: $it")
+                        _timer_h.value = it
+                        // Log.d("tzmax", "选中的小时: $it")
                     }
                 )
 
@@ -195,7 +209,8 @@ fun MyApp() {
                     text = "M",
 //                    text = "Minute",
                     callBack = fun(it: Int) {
-                        Log.d("tzmax", "选中的分钟: $it")
+                        _timer_m.value = it
+                        // Log.d("tzmax", "选中的分钟: $it")
                     }
                 )
 
@@ -206,7 +221,8 @@ fun MyApp() {
                     text = "S",
 //                    text = "Second",
                     callBack = fun(it: Int) {
-                        Log.d("tzmax", "选中的秒钟: $it")
+                        _timer_s.value = it
+                        // Log.d("tzmax", "选中的秒钟: $it")
                     }
                 )
             }
@@ -231,6 +247,10 @@ fun MyApp() {
                         Modifier
                             .width(85.dp)
                             .height(85.dp)
+                            .clip(RoundedCornerShape((42.5).dp))
+                            .clickable {
+                                TimerActivity.actionStart(_timer_h.value, _timer_m.value, _timer_s.value)
+                            }
                     )
                     Text(
                         text = "Run timer",
